@@ -1,0 +1,2 @@
+LEER UN CHAR POR CONSOLA
+char nombrevariable = leer.next().charAt(0);

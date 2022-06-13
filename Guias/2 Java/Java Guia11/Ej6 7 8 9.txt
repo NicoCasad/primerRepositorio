@@ -1,0 +1,34 @@
+PREGUNTA 6
+
+1)Se van a ejecutar las sentencias a1 y a2, y si se pudieron ejecutar sin problemas entra en el try y en la sentencia que salte la excepcion se va a parar la ejecucion de dicha sentencia y se van a ejecutar las del catch en el orden en el que estan
+
+2) se ejecutraan las sentencias a1 y a2, si se ejecutan bien de ejecutan las del try en el orden en que se encuentran a3 y a4
+
+PREGUNTA 7
+
+1)Se ejecuta la sentencia b1, si se ejecuta la sentencia correctamente entra al try y como no se puede ejecutar b2 salta la excepcion y se ejecuta b3 y luego se ejecuta b4
+
+2)Se ejecuta la sentencia b1, si se ejecuta bien, entra al try y se ejecuta b2 y luego se ejecuta b4
+
+PREGUNTA 8
+
+class uno:
+- Valor final del try: 44
+- Valor final del finally: 45
+- Valor antes del return: 46
+- 46
+
+class dos:
+- Valor final del catch: 43
+- Valor final del finally: 44
+- Valor antes del return: 45
+
+class tres:
+- Excepcion en metodo ( )
+- java Exception: NumberFormatException
+
+PREGUNTA 9
+
+1) se ejecuta sentencia c1, entra en el try. En la sentencia que no se pueda ejecutar se detiene y entra en el catch MioExcepcion y se ejecuta la sentencia c4. Luego entra en el finally y se ejecuta la sentencia c6
+2) se ejecuta sentencia c1, entra en el try. Se ejecutan las sentencias c2 y c3, entra en el finally y se ejecuta la sentencia c6
+3) La excepcion se puede ejecutar en el caso de que ocurra la excepcion en la sentencia c1 o ocurra en la sentencia c4 por lo que pasaria a ejecutarse la sentencia c5 y luego la sentencia c6
