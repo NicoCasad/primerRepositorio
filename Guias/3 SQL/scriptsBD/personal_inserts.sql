@@ -3,7 +3,7 @@ CREATE DATABASE personal CHARACTER SET utf8mb4;
 USE personal;
 
 CREATE TABLE departamentos (
-id_depto INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+  id_depto INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
   nombre_depto VARCHAR(20) NOT NULL,
   ciudad VARCHAR(15) NULL,
   cod_director VARCHAR(12) NULL
@@ -20,7 +20,7 @@ CREATE TABLE empleados (
   comision_emp FLOAT NOT NULL,
   cargo_emp VARCHAR(15) NOT NULL,
   cod_jefe VARCHAR(12) NULL,  
-	id_depto INT UNSIGNED NOT NULL,
+  id_depto INT UNSIGNED NOT NULL,
   FOREIGN KEY (id_depto) REFERENCES departamentos(id_depto)
   );
 
@@ -68,3 +68,87 @@ INSERT INTO `empleados` VALUES (338,'Abel Gómez','M','1939-12-24','2000-10-01',
 INSERT INTO `empleados` VALUES (689,'Mario Llano','M','1945-08-30','1990-05-16',2250000,2500000,'Vendedor','31.178.144',2300);
 INSERT INTO `empleados` VALUES (785,'Joaquín Rosas','M','1947-07-07','1990-05-16',2250000,2500000,'Vendedor','31.178.144',2200);
 INSERT INTO `empleados` VALUES (898,'Iván Duarte','M','1955-08-12','1998-05-16',1050000,200000,'Mecánico','333.333.333',4100);
+
+-- 1
+SELECT * FROM empleados;
+-- 2
+SELECT * FROM departamentos;
+-- 3
+SELECT DISTINCT nombre_depto FROM departamentos;
+-- 4
+SELECT nombre, sal_emp FROM empleados;
+-- 5
+SELECT comision_emp FROM empleados;
+-- 6
+SELECT * FROM empleados
+WHERE cargo_emp = "Secretaria";
+-- 7
+SELECT * FROM empleados 
+WHERE cargo_emp = "Vendedor"
+ORDER BY nombre;
+-- 8
+SELECT nombre, cargo_emp FROM empleados
+ORDER BY sal_emp ASC;
+-- 9
+SELECT DISTINCT (nombre + cargo_emp) FROM empleados;
+-- 10
+SELECT DISTINCT sal_emp, comision_emp FROM empleados
+ORDER BY comision_emp ASC;
+-- 11
+SELECT DISTINCT (sal_emp + comision_emp + 500) AS sueldo_bonificado FROM empleados 
+WHERE id_depto = 3000
+ORDER BY nombre;
+-- 12
+SELECT DISTINCT nombre FROM empleados 
+WHERE nombre = "J%";
+-- 13
+SELECT nombre, sal_emp, comision_emp, (sal_emp + comision_emp) AS sal_emp_total FROM empleados
+WHERE comision_emp > 1000;
+-- 14
+SELECT nombre, sal_emp, comision_emp, (sal_emp + comision_emp) AS sal_emp_total FROM empleados
+WHERE comision_emp = 0 OR comision_emp = NULL;
+-- 15
+SELECT nombre FROM empleados
+WHERE sal_emp < comision_emp;
+-- 16
+SELECT nombre FROM empleados
+WHERE comision_emp <= (comision_emp * 30)/100; 
+-- 17
+SELECT nombre FROM empleados
+WHERE nombre != "%Ma%";
+-- 18
+SELECT nombre_depto FROM departamentos
+WHERE nombre_depto = "Ventas";
+-- 19
+SELECT nombre_depto FROM departamentos
+WHERE nombre_depto != "Ventas" OR nombre_depto != "Mantenimiento" OR nombre_depto != "Investigacion";
+-- 20
+SELECT MAX(sal_emp) FROM empleados;
+-- 21
+SELECT nombre FROM empleados
+ORDER BY nombre DESC 
+LIMIT 1;
+-- 22
+SELECT MAX(sal_emp) AS sal_emp_maximo, MIN(sal_emp) AS sal_emp_minimo, (MAX(sal_emp) - MIN(sal_emp)) AS sal_emp_diferencia FROM empleados;
+-- 23
+SELECT id_depto, AVG(sal_emp) FROM empleados
+HAVING id_depto ORDER BY id_depto ASC;
+-- 24
+SELECT COUNT(empleados.id_depto) AS cantidad_empleados, nombre_depto FROM empleados 
+INNER JOIN departamentos ON departamentos.id_depto = empleados.id_depto
+GROUP BY departamentos.id_depto
+HAVING COUNT(empleados.id_depto) > 3;
+-- 25
+SELECT cod_jefe, cargo_emp, COUNT(1) AS cant_empleados 
+FROM empleados e1
+GROUP BY cod_jefe
+HAVING COUNT(1) > 1;
+-- 26
+SELECT id_depto, nombre_depto FROM departamentos 
+WHERE (SELECT COUNT(id_depto) FROM empleados WHERE empleados.id_depto = departamentos.id_depto) < 2 ;
+-- 27
+SELECT id_emp, nombre FROM empleados 
+WHERE sal_emp > (SELECT AVG(sal_emp) FROM empleados) 
+ORDER BY id_depto;
+
+DROP DATABASE personal;

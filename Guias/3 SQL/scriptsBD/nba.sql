@@ -18558,3 +18558,35 @@ INSERT INTO partidos VALUES (15657,'Suns','Hornets',68,65,'07/08');
 INSERT INTO partidos VALUES (15658,'Suns','Spurs',105,157,'07/08');
 INSERT INTO partidos VALUES (15659,'Suns','Rockets',105,57,'07/08');
 INSERT INTO partidos VALUES (15660,'Suns','Mavericks',69,144,'07/08');
+
+-- candado A 
+SELECT count(1) from estadisticas
+WHERE Asistencias_por_partido >= (SELECT MAX(Asistencias_por_partido) FROM estadisticas);
+ 
+SELECT SUM(Peso) FROM jugadores 
+inner join equipos on jugadores.Nombre_equipo = equipos.Nombre
+WHERE Conferencia LIKE "East" and Posicion LIKE "%C%";
+
+-- Candado B 
+Select count(1) from jugadores inner join estadisticas on jugadores.codigo = estadisticas.jugador
+where Asistencias_por_partido > (Select count(codigo) from jugadores where Nombre_equipo Like "Heat");
+
+SELECT COUNT(temporada) FROM partidos 
+WHERE temporada LIKE "%99%"; 
+
+-- candado c 
+select count(codigo) from jugadores inner join equipos on jugadores.Nombre_equipo = equipos.Nombre
+where Procedencia like "%Michigan%" and Conferencia like "West";
+select count(codigo) from jugadores 
+Where Peso >= 195;
+
+Select round(avg(Puntos_por_partido) + sum(Tapones_por_partido) + count(Asistencias_por_partido)) from estadisticas 
+inner join  jugadores on estadisticas.jugador = jugadores.codigo inner join equipos on jugadores.Nombre_equipo = equipos.Nombre
+where Division Like "Central";
+
+-- candado d 
+Select round(Tapones_por_partido) from estadisticas inner join jugadores on estadisticas.jugador = jugadores.codigo
+Where Nombre like "Corey Maggette" and Temporada like "00/01";
+
+Select round(sum(Puntos_por_partido)) from estadisticas inner join jugadores on estadisticas.jugador = jugadores.codigo
+where Procedencia like "Argentina";
